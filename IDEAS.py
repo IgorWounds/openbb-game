@@ -9,7 +9,7 @@ class QuizQuestion:
         self.user_input_vars = []
 
     def display(self):
-        ctk.CTkLabel(self.app, text=self.data["prompt"]).pack(anchor='w', pady=(0, 10))  # Add some padding for spacing
+        ctk.CTkLabel(self.app, text=self.data["prompt"], wraplength=500).pack(anchor='w', pady=(0, 10))  # Add some padding for spacing
         if self.data["type"] == "single_choice":
             self.user_input_vars = [tk.StringVar()]
             for choice in self.data["choices"]:
@@ -35,7 +35,7 @@ class QuizQuestion:
 class QuizApp:
     def __init__(self, quiz_data):
         self.app = ctk.CTk()
-        self.app.geometry("800x500")
+        self.app.geometry("1200x500")
         self.app.title("Quiz Application")
         ctk.set_appearance_mode("System")  # or "Dark" / "Light"
         ctk.set_default_color_theme("blue")  # Theme color
