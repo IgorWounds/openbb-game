@@ -1,0 +1,439 @@
+{
+    "1": {
+        "type": "multiple_choice",
+        "prompt": "What are the features of the OpenBB Platform?",
+        "choices": [
+            {
+                "a": "Modular"
+            },
+            {
+                "b": "Scalable"
+            },
+            {
+                "c": "Secure"
+            },
+            {
+                "d": "Open Source"
+            }
+        ],
+        "answer": ["a", "b", "c", "d"],
+        "url": ""
+    },
+    "2": {
+        "type": "multiple_choice",
+        "prompt": "Pairs trading is a strategy where",
+        "choices": [
+            {
+                "a": "a trader buys one asset while shorting another. The main premise of the trade is that when the two pairs diverge, they will likely converge again resulting in profit for the trader."
+            },
+            {
+                "b": "a trader buys one asset while shorting another. The main premise of the trade is that when the two pairs diverge, they will likely diverge even further resulting in profit for the trader."
+            },
+            {
+                "c": "a trader buys both assets and holds them for a long time."
+            },
+            {
+                "d": "a trader buys low and sells high."
+            }
+        ],
+        "answer": ["a", "b", "c", "d"],
+        "url": ""
+    },
+    "3": {
+        "type": "single_choice",
+        "prompt": "For a Pairs trading strategy to work the best, the two assets should be",
+        "choices": [
+            {
+                "a": "highly correlated"
+            },
+            {
+                "b": "highly uncorrelated"
+            },
+            {
+                "c": "correlated and cointegrated"
+            },
+            {
+                "d": "correlated with the S&P 500"
+            }
+        ],
+        "answer": "c",
+        "url": ""
+    },
+    "4": {
+        "type": "single_choice",
+        "prompt": "To install the OpenBB Platform you need to",
+        "choices": [
+            {
+                "a": "Install Docker and run: `docker run -p 8888:8888 openbb/platform`"
+            },
+            {
+                "b": "Run `pip install openbb-platform`"
+            },
+            {
+                "c": "Turn on your computer and wait for the Platform to install itself"
+            },
+            {
+                "d": "Run `pip install openbb`"
+            }
+        ],
+        "answer": "d",
+        "url": ""
+    },
+    "5": {
+        "type": "single_choice",
+        "prompt": "To import the OpenBB Platform you need to",
+        "choices": [
+            {
+                "a": "`from openbb-platform import platform`"
+            },
+            {
+                "b": "`import openbb-platform`"
+            },
+            {
+                "c": "`from openbb import platform`"
+            },
+            {
+                "d": "`from openbb import obb`"
+            }
+        ],
+        "answer": "d",
+        "url": ""
+    },
+    "6": {
+        "type": "single_choice",
+        "prompt": "To connect to the Hub you need to run",
+        "choices": [
+            {
+                "a": "`obb.connect`"
+            },
+            {
+                "b": "`obb.account.login(email='email', password='password')`"
+            },
+            {
+                "c": "`obb.account.connect(email='email', password='password')`"
+            },
+            {
+                "d": "`obb.login(email='email', password='password')`"
+            }
+        ],
+        "answer": "d",
+        "url": ""
+    },
+    "7": {
+        "type": "single_choice",
+        "prompt": "To analyze the NFLX balance sheet we need to access which namespace",
+        "choices": [
+            {
+                "a": "`obb.financials.balance_sheet`"
+            },
+            {
+                "b": "`obb.fundamental.balance`"
+            },
+            {
+                "c": "`obb.equity.fundamental.balance`"
+            },
+            {
+                "d": "`obb.balance_sheet`"
+            }
+        ],
+        "answer": "c",
+        "url": ""
+    },
+    "8": {
+        "type": "single_choice",
+        "prompt": "To display the results as a dataframe we need to run add `to_df()` to the end of the command",
+        "choices": [
+            {
+                "a": "true"
+            },
+            {
+                "b": "false"
+            }
+        ],
+        "answer": "a",
+        "url": ""
+    },
+    "9": {
+        "type": "single_choice",
+        "prompt": "To get the income statement all we need to do is to change `balance` to `income` in the namespace",
+        "choices": [
+            {
+                "a": "true"
+            },
+            {
+                "b": "false"
+            }
+        ],
+        "answer": "a",
+        "url": ""
+    },
+    "10": {
+        "type": "single_choice",
+        "prompt": "What is the value of NFLX net income in 2021 based on the cash flow statement?",
+        "choices": [
+            {
+                "a": "1866916000"
+            },
+            {
+                "b": "1211242000"
+            },
+            {
+                "c": "2761395000"
+            },
+            {
+                "d": "4491924000"
+            },
+            {
+                "e": "5116228000"
+            }
+        ],
+        "answer": "e",
+        "url": ""
+    },
+    "11": {
+        "type": "single_choice",
+        "prompt": "What are the peers of NFLX when we run the following command `obb.equity.compare.peers(\"NFLX\").to_df()[1][0]`?",
+        "choices": [
+            {
+                "a": "['MSFT', 'META', 'GOOG', 'AAPL', 'AMZN']"
+            },
+            {
+                "b": "['SPY', 'QQQ', 'F']"
+            },
+            {
+                "c": "['PARA', 'ROKU', 'WBD', 'AMC', 'DIS', 'APE', 'PARAA']"
+            },
+            {
+                "d": "['XAU', 'DJI', 'VOO']"
+            }
+        ],
+        "answer": "c",
+        "url": ""
+    },
+    "12": {
+        "type": "single_choice",
+        "prompt": "To get the quarterly income statement of ROKU  we run the following command",
+        "choices": [
+            {
+                "a": "`obb.equity.fundamental.income_statement(\"ROKU\", period=\"1\", year=2021)`"
+            },
+            {
+                "b": "`obb.equity.fundamental.income(\"ROKU\", period=\"quarter\")`"
+            },
+            {
+                "c": "`obb.equity.fundamental.income(\"NFLX\")`"
+            },
+            {
+                "d": "`obb.equity.fundamental.income(\"ROKU\", period=\"quarterly\")`"
+            }
+        ],
+        "answer": "b",
+        "url": ""
+    },
+    "13": {
+        "type": "multiple_choice",
+        "prompt": "Which of the following peers should we remove from the analysis",
+        "choices": [
+            {
+                "a": "PARAA"
+            },
+            {
+                "b": "ROKU"
+            },
+            {
+                "c": "APE"
+            },
+            {
+                "d": "WBD"
+            },
+            {
+                "e": "DIS"
+            }
+        ],
+        "answer": ["a", "c"],
+        "url": ""
+    },
+    "14": {
+        "type": "single_choice",
+        "prompt": "To obtain the historical data for NFLX and its peers for the last 2 years we can run the following command",
+        "choices": [
+            {
+                "a": "`obb.equity.historical(\"NFLX\", \"ROKU\", \"WBD\", \"DIS\", \"APE\", \"PARAA\", period=\"2y\")`"
+            },
+            {
+                "b": "`obb.equity.price.historical(symbol=[\"NFLX\", \"ROKU\", \"PARA\", \"AMC\", \"WBD\", \"DIS\"], start_date=\"2021-01-01\", provider=\"fmp\")`"
+            },
+            {
+                "c": "`obb.price.historical(symbols=[\"NFLX\", \"ROKU\", \"PARA\", \"AMC\", \"WBD\", \"DIS\"], start_date=\"2021-01-01\", provider=\"fmp\")`"
+            },
+            {
+                "d": "`obb.historical.price(symbols=[\"NFLX\", \"ROKU\", \"PARA\", \"AMC\", \"WBD\", \"DIS\"], start_date=\"2021-01-01\", provider=\"fmp\")`"
+            }
+        ],
+        "answer": "b",
+        "url": ""
+    },
+    "15": {
+        "type": "single_choice",
+        "prompt": "To calculate the SMA what OpenBB extension do we need to install?",
+        "choices": [
+            {
+                "a": "openbb-technical"
+            },
+            {
+                "b": "openbb-quantitative"
+            },
+            {
+                "c": "openbb-ta"
+            },
+            {
+                "d": "openbb-econometrics"
+            }
+        ],
+        "answer": "a",
+        "url": ""
+    },
+    "16": {
+        "type": "single_choice",
+        "prompt": "To run a cointegration and correlation test we need to use which OpenBB extension?",
+        "choices": [
+            {
+                "a": "openbb-technical"
+            },
+            {
+                "b": "openbb-quantitative"
+            },
+            {
+                "c": "openbb-econometrics"
+            },
+            {
+                "d": "openbb-statistics"
+            }
+        ],
+        "answer": "c",
+        "url": ""
+    },
+    "17": {
+        "type": "single_choice",
+        "prompt": "To calculate the 20 SMA we need to run the following command for each of the peers",
+        "choices": [
+            {
+                "a": "`obb.technical.sma(data=data[data[\"symbol\"] == \"NFLX\"], length=20)`"
+            },
+            {
+                "b": "`obb.ta.sma(data=data[data[\"symbol\"] == \"NFLX\"], length=20)`"
+            },
+            {
+                "c": "`obb.technical.sma(data=data, length=20)`"
+            },
+            {
+                "d": "`obb.ta.sma(data=data, length=20)`"
+            }
+        ],
+        "answer": "a",
+        "url": ""
+    },
+    "18": {
+        "type": "single_choice",
+        "prompt": "To run the cointegration test we need to run the following command",
+        "choices": [
+            {
+                "a": "`obb.econometrics.cointegration(data=data, columns=data.columns)`"
+            },
+            {
+                "b": "`obb.econometrics.cointegration(symbols=[\"NFLX\", \"ROKU\", \"PARA\", \"AMC\", \"WBD\", \"DIS\"])`"
+            },
+            {
+                "c": "`obb.econometrics.cointegration(data=data, columns=data.columns, period=\"2y\")`"
+            },
+            {
+                "d": "obb.econometrics.cointegrate(data=data, columns=data.columns)"
+            }
+        ],
+        "answer": "a",
+        "url": ""
+    },
+    "19": {
+        "type": "multiple_choice",
+        "prompt": "Which one of the following pairs are the most cointegrated?",
+        "choices": [
+            {
+                "a": "DIS/PARA"
+            },
+            {
+                "b": "PARA/ROKU"
+            },
+            {
+                "c": "DIS/WBD"
+            },
+            {
+                "d": "AMC/DIS"
+            },
+            {
+                "e": "PARA/WBD"
+            }
+        ],
+        "answer": ["e", "a", "b"],
+        "url": ""
+    },
+    "20": {
+        "type": "single_choice",
+        "prompt": "To create a correlation matrix we need to run the following command",
+        "choices": [
+            {
+                "a": "`obb.quantitative.correlation_matrix(data=data)`"
+            },
+            {
+                "b": "`obb.technical.correlation_matrix(data=data)`"
+            },
+            {
+                "c": "`obb.statistics.correlation_matrix(data=data)`" 
+            },
+            {
+                "d": "`obb.econometrics.correlation_matrix(data=data)`"
+            }
+        ],
+        "answer": "d",
+        "url": ""
+    },
+    "21": {
+        "type": "single_choice",
+        "prompt": "To analyze the NFLX balance sheet we need to access which namespace",
+        "choices": [
+            {
+                "a": "`obb.financials.balance_sheet` "
+            },
+            {
+                "b": "`obb.fundamental.balance`"
+            },
+            {
+                "c": "`obb.equity.fundamental.balance`"
+            },
+            {
+                "d": "`obb.balance_sheet`"
+            }
+        ],
+        "answer": "c",
+        "url": ""
+    },
+    "22": {
+        "type": "single_choice",
+        "prompt": "To obtain the latest news for PARA and its pair trading peers, we use the following command",
+        "choices": [
+            {
+                "a": "`obb.news.latest(\"PARA, WBD, DIS, ROKU, AMC, NFLX\")`"
+            },
+            {
+                "b": "obb.news.company(\"PARA, WBD, DIS, ROKU, AMC, NFLX\")"
+            },
+            {
+                "c": "`obb.news.companies([\"PARA\", \"WBD\", \"DIS\", \"ROKU\", \"AMC\", \"NFLX\"])`"
+            },
+            {
+                "d": "`obb.news.company([\"PARA\", \"WBD\", \"DIS\", \"ROKU\", \"AMC\", \"NFLX\"])`"
+            }
+        ],
+        "answer": "b",
+        "url": ""
+    }
+}
