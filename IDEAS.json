@@ -64,16 +64,16 @@
         "prompt": "To install the OpenBB Platform you need to",
         "choices": [
             {
-                "a": "Install Docker and run: `docker run -p 8888:8888 openbb/platform`"
+                "a": "Install Docker and run: docker run -p 8888:8888 openbb/platform"
             },
             {
-                "b": "Run `pip install openbb-platform`"
+                "b": "Run pip install openbb-platform"
             },
             {
                 "c": "Turn on your computer and wait for the Platform to install itself"
             },
             {
-                "d": "Run `pip install openbb`"
+                "d": "Run pip install openbb"
             }
         ],
         "answer": "d",
@@ -84,16 +84,16 @@
         "prompt": "To import the OpenBB Platform you need to",
         "choices": [
             {
-                "a": "`from openbb-platform import platform`"
+                "a": "from openbb-platform import platform"
             },
             {
-                "b": "`import openbb-platform`"
+                "b": "import openbb-platform"
             },
             {
-                "c": "`from openbb import platform`"
+                "c": "from openbb import platform"
             },
             {
-                "d": "`from openbb import obb`"
+                "d": "from openbb import obb"
             }
         ],
         "answer": "d",
@@ -104,16 +104,16 @@
         "prompt": "To connect to the Hub you need to run",
         "choices": [
             {
-                "a": "`obb.connect`"
+                "a": "obb.connect"
             },
             {
-                "b": "`obb.account.login(email='email', password='password')`"
+                "b": "obb.account.login(email='email', password='password')"
             },
             {
-                "c": "`obb.account.connect(email='email', password='password')`"
+                "c": "obb.account.connect(email='email', password='password')"
             },
             {
-                "d": "`obb.login(email='email', password='password')`"
+                "d": "obb.login(email='email', password='password')"
             }
         ],
         "answer": "d",
@@ -124,16 +124,16 @@
         "prompt": "To analyze the NFLX balance sheet we need to access which namespace",
         "choices": [
             {
-                "a": "`obb.financials.balance_sheet`"
+                "a": "obb.financials.balance_sheet"
             },
             {
-                "b": "`obb.fundamental.balance`"
+                "b": "obb.fundamental.balance"
             },
             {
-                "c": "`obb.equity.fundamental.balance`"
+                "c": "obb.equity.fundamental.balance"
             },
             {
-                "d": "`obb.balance_sheet`"
+                "d": "obb.balance_sheet"
             }
         ],
         "answer": "c",
@@ -141,7 +141,7 @@
     },
     "8": {
         "type": "single_choice",
-        "prompt": "To display the results as a dataframe we need to run add `to_df()` to the end of the command",
+        "prompt": "To display the results as a dataframe we need to run add to_df() to the end of the command",
         "choices": [
             {
                 "a": "true"
@@ -155,7 +155,7 @@
     },
     "9": {
         "type": "single_choice",
-        "prompt": "To get the income statement all we need to do is to change `balance` to `income` in the namespace",
+        "prompt": "To get the income statement all we need to do is to change balance to income in the namespace",
         "choices": [
             {
                 "a": "true"
@@ -192,7 +192,7 @@
     },
     "11": {
         "type": "single_choice",
-        "prompt": "What are the peers of NFLX when we run the following command `obb.equity.compare.peers(\"NFLX\").to_df()[1][0]`?",
+        "prompt": "What are the peers of NFLX when we run the following command obb.equity.compare.peers(\"NFLX\").to_df()[1][0]?",
         "choices": [
             {
                 "a": "['MSFT', 'META', 'GOOG', 'AAPL', 'AMZN']"
@@ -215,16 +215,16 @@
         "prompt": "To get the quarterly income statement of ROKU we run the following command",
         "choices": [
             {
-                "a": "`obb.equity.fundamental.income_statement(\"ROKU\", period=\"1\", year=2021)`"
+                "a": "obb.equity.fundamental.income_statement(\"ROKU\", period=\"1\", year=2021)"
             },
             {
-                "b": "`obb.equity.fundamental.income(\"ROKU\", period=\"quarter\")`"
+                "b": "obb.equity.fundamental.income(\"ROKU\", period=\"quarter\")"
             },
             {
-                "c": "`obb.equity.fundamental.income(\"NFLX\")`"
+                "c": "obb.equity.fundamental.income(\"NFLX\")"
             },
             {
-                "d": "`obb.equity.fundamental.income(\"ROKU\", period=\"quarterly\")`"
+                "d": "obb.equity.fundamental.income(\"ROKU\", period=\"quarterly\")"
             }
         ],
         "answer": "b",
@@ -258,16 +258,16 @@
         "prompt": "To obtain the historical data for NFLX and its peers for the last 2 years we can run the following command",
         "choices": [
             {
-                "a": "`obb.equity.historical(\"NFLX\", \"ROKU\", \"WBD\", \"DIS\", \"APE\", \"PARAA\", period=\"2y\")`"
+                "a": "obb.equity.historical(\"NFLX\", \"ROKU\", \"WBD\", \"DIS\", \"APE\", \"PARAA\", period=\"2y\")"
             },
             {
-                "b": "`obb.equity.price.historical(symbol=[\"NFLX\", \"ROKU\", \"PARA\", \"AMC\", \"WBD\", \"DIS\"], start_date=\"2021-01-01\", provider=\"fmp\")`"
+                "b": "obb.equity.price.historical(symbol=[\"NFLX\", \"ROKU\", \"PARA\", \"AMC\", \"WBD\", \"DIS\"], start_date=\"2021-01-01\", provider=\"fmp\")"
             },
             {
-                "c": "`obb.price.historical(symbols=[\"NFLX\", \"ROKU\", \"PARA\", \"AMC\", \"WBD\", \"DIS\"], start_date=\"2021-01-01\", provider=\"fmp\")`"
+                "c": "obb.price.historical(symbols=[\"NFLX\", \"ROKU\", \"PARA\", \"AMC\", \"WBD\", \"DIS\"], start_date=\"2021-01-01\", provider=\"fmp\")"
             },
             {
-                "d": "`obb.historical.price(symbols=[\"NFLX\", \"ROKU\", \"PARA\", \"AMC\", \"WBD\", \"DIS\"], start_date=\"2021-01-01\", provider=\"fmp\")`"
+                "d": "obb.historical.price(symbols=[\"NFLX\", \"ROKU\", \"PARA\", \"AMC\", \"WBD\", \"DIS\"], start_date=\"2021-01-01\", provider=\"fmp\")"
             }
         ],
         "answer": "b",
@@ -318,16 +318,16 @@
         "prompt": "To calculate the 20 SMA we need to run the following command for each of the peers",
         "choices": [
             {
-                "a": "`obb.technical.sma(data=data[data[\"symbol\"] == \"NFLX\"], length=20)`"
+                "a": "obb.technical.sma(data=data[data[\"symbol\"] == \"NFLX\"], length=20)"
             },
             {
-                "b": "`obb.ta.sma(data=data[data[\"symbol\"] == \"NFLX\"], length=20)`"
+                "b": "obb.ta.sma(data=data[data[\"symbol\"] == \"NFLX\"], length=20)"
             },
             {
-                "c": "`obb.technical.sma(data=data, length=20)`"
+                "c": "obb.technical.sma(data=data, length=20)"
             },
             {
-                "d": "`obb.ta.sma(data=data, length=20)`"
+                "d": "obb.ta.sma(data=data, length=20)"
             }
         ],
         "answer": "a",
@@ -338,13 +338,13 @@
         "prompt": "To run the cointegration test we need to run the following command",
         "choices": [
             {
-                "a": "`obb.econometrics.cointegration(data=data, columns=data.columns)`"
+                "a": "obb.econometrics.cointegration(data=data, columns=data.columns)"
             },
             {
-                "b": "`obb.econometrics.cointegration(symbols=[\"NFLX\", \"ROKU\", \"PARA\", \"AMC\", \"WBD\", \"DIS\"])`"
+                "b": "obb.econometrics.cointegration(symbols=[\"NFLX\", \"ROKU\", \"PARA\", \"AMC\", \"WBD\", \"DIS\"])"
             },
             {
-                "c": "`obb.econometrics.cointegration(data=data, columns=data.columns, period=\"2y\")`"
+                "c": "obb.econometrics.cointegration(data=data, columns=data.columns, period=\"2y\")"
             },
             {
                 "d": "obb.econometrics.cointegrate(data=data, columns=data.columns)"
@@ -381,16 +381,16 @@
         "prompt": "To create a correlation matrix we need to run the following command",
         "choices": [
             {
-                "a": "`obb.quantitative.correlation_matrix(data=data)`"
+                "a": "obb.quantitative.correlation_matrix(data=data)"
             },
             {
-                "b": "`obb.technical.correlation_matrix(data=data)`"
+                "b": "obb.technical.correlation_matrix(data=data)"
             },
             {
-                "c": "`obb.statistics.correlation_matrix(data=data)`" 
+                "c": "obb.statistics.correlation_matrix(data=data)" 
             },
             {
-                "d": "`obb.econometrics.correlation_matrix(data=data)`"
+                "d": "obb.econometrics.correlation_matrix(data=data)"
             }
         ],
         "answer": "d",
@@ -401,16 +401,16 @@
         "prompt": "To obtain the latest news for PARA and its pair trading peers, we use the following command",
         "choices": [
             {
-                "a": "`obb.news.latest(\"PARA, WBD, DIS, ROKU, AMC, NFLX\")`"
+                "a": "obb.news.latest(\"PARA, WBD, DIS, ROKU, AMC, NFLX\")"
             },
             {
                 "b": "obb.news.company(\"PARA, WBD, DIS, ROKU, AMC, NFLX\")"
             },
             {
-                "c": "`obb.news.companies([\"PARA\", \"WBD\", \"DIS\", \"ROKU\", \"AMC\", \"NFLX\"])`"
+                "c": "obb.news.companies([\"PARA\", \"WBD\", \"DIS\", \"ROKU\", \"AMC\", \"NFLX\"])"
             },
             {
-                "d": "`obb.news.company([\"PARA\", \"WBD\", \"DIS\", \"ROKU\", \"AMC\", \"NFLX\"])`"
+                "d": "obb.news.company([\"PARA\", \"WBD\", \"DIS\", \"ROKU\", \"AMC\", \"NFLX\"])"
             }
         ],
         "answer": "b",
