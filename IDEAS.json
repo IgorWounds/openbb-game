@@ -212,7 +212,7 @@
     },
     "12": {
         "type": "single_choice",
-        "prompt": "To get the quarterly income statement of ROKU  we run the following command",
+        "prompt": "To get the quarterly income statement of ROKU we run the following command",
         "choices": [
             {
                 "a": "`obb.equity.fundamental.income_statement(\"ROKU\", period=\"1\", year=2021)`"
@@ -397,26 +397,6 @@
         "url": ""
     },
     "21": {
-        "type": "single_choice",
-        "prompt": "To analyze the NFLX balance sheet we need to access which namespace",
-        "choices": [
-            {
-                "a": "`obb.financials.balance_sheet` "
-            },
-            {
-                "b": "`obb.fundamental.balance`"
-            },
-            {
-                "c": "`obb.equity.fundamental.balance`"
-            },
-            {
-                "d": "`obb.balance_sheet`"
-            }
-        ],
-        "answer": "c",
-        "url": ""
-    },
-    "22": {
         "type": "single_choice",
         "prompt": "To obtain the latest news for PARA and its pair trading peers, we use the following command",
         "choices": [
