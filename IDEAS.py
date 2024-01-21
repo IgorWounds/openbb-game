@@ -17,7 +17,19 @@ class QuizQuestion:
             anchor="w", pady=(0, 10), fill="x"
         )  # Ensure label fills the x-axis and is left-aligned
 
-        if self.data["type"] == "single_choice":
+        if self.data["type"] == "multiple_choice":
+            self.user_input_vars = []
+            for choice in self.data["choices"]:
+                choice_frame = ctk.CTkFrame(self.app)
+                choice_frame.pack(fill="x", pady=2)
+                var = tk.BooleanVar()
+                checkbox = ctk.CTkCheckBox(
+                    choice_frame, text=list(choice.values())[0], variable=var
+                )
+                checkbox.pack(side="left", anchor="w")
+                self.user_input_vars.append(var)
+
+        elif self.data["type"] == "single_choice":
             self.user_input_vars = [tk.StringVar()]
             for choice in self.data["choices"]:
                 for key, value in choice.items():
@@ -30,26 +42,26 @@ class QuizQuestion:
                     radio_button.pack(
                         anchor="w", fill="x"
                     )  # Ensure radio button fills the x-axis and is left-aligned
-        elif self.data["type"] == "multiple_choice":
-            for choice in self.data["choices"]:
-                choice_frame = ctk.CTkFrame(self.app)
-                choice_frame.pack(fill="x", pady=2)  # Ensure frame fills the x-axis
-                var = tk.StringVar()
-                checkbox = ctk.CTkCheckBox(
-                    choice_frame, text=list(choice.values())[0], variable=var
-                )
-                checkbox.pack(
-                    side="left", anchor="w"
-                )  # Align checkbox to the left within the frame
-                self.user_input_vars.append(var)
+        # elif self.data["type"] == "multiple_choice":
+        #     for choice in self.data["choices"]:
+        #         choice_frame = ctk.CTkFrame(self.app)
+        #         choice_frame.pack(fill="x", pady=2)  # Ensure frame fills the x-axis
+        #         var = tk.StringVar()
+        #         checkbox = ctk.CTkCheckBox(
+        #             choice_frame, text=list(choice.values())[0], variable=var
+        #         )
+        #         checkbox.pack(
+        #             side="left", anchor="w"
+        #         )  # Align checkbox to the left within the frame
+        #         self.user_input_vars.append(var)
 
     def validate(self):
         if self.data["type"] == "multiple_choice":
-            user_selected_keys = set(
+            user_selected_keys = {
                 list(choice.keys())[0]
                 for choice, var in zip(self.data["choices"], self.user_input_vars)
-                if var.get() == "1"
-            )
+                if var.get()
+            }
             correct_answers = set(self.data["answer"])
             return user_selected_keys == correct_answers
         elif self.data["type"] == "single_choice":
@@ -124,14 +136,12 @@ class QuizApp:
         question_data = self.quiz_data[str(self.current_question_id)]
 
         if self.current_question.data["type"] == "multiple_choice":
-            correct_answers = set(question_data["answer"])  # Set of correct answer keys
+            correct_answers = set(question_data["answer"])
             for choice, var in zip(
                 question_data["choices"], self.current_question.user_input_vars
             ):
-                choice_key = next(
-                    iter(choice.keys())
-                )  # Get the key of the current choice
-                var.set("1" if choice_key in correct_answers else "0")
+                choice_key = next(iter(choice.keys()))
+                var.set(choice_key in correct_answers)
         elif self.current_question.data["type"] == "single_choice":
             correct_answer_key = question_data["answer"]
             self.current_question.user_input_vars[0].set(correct_answer_key)
