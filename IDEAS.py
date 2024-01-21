@@ -45,12 +45,13 @@ class QuizQuestion:
 
     def validate(self):
         if self.data["type"] == "multiple_choice":
-            user_selected_keys = [
+            user_selected_keys = set(
                 list(choice.keys())[0]
                 for choice, var in zip(self.data["choices"], self.user_input_vars)
                 if var.get() == "1"
-            ]
-            return set(user_selected_keys) == set(self.data["answer"])
+            )
+            correct_answers = set(self.data["answer"])
+            return user_selected_keys == correct_answers
         elif self.data["type"] == "single_choice":
             return self.user_input_vars[0].get() == self.data["answer"]
         return False
@@ -119,32 +120,21 @@ class QuizApp:
         # Clear any previous message
         self.display_message("")
 
-        # Clear previous answer labels and pack the answer frame
-        for widget in self.answer_frame.winfo_children():
-            widget.destroy()
-        self.answer_frame.pack(pady=(5, 0))
-
+        # Set the correct answer(s)
         question_data = self.quiz_data[str(self.current_question_id)]
 
-        # Display the correct answer(s)
-        if isinstance(question_data["answer"], list):
-            for answer_key in question_data["answer"]:
-                answer_text = next(
-                    choice[answer_key]
-                    for choice in question_data["choices"]
-                    if answer_key in choice
-                )
-                answer_label = ctk.CTkLabel(self.answer_frame, text=answer_text)
-                answer_label.pack(anchor="w")
-        else:
+        if self.current_question.data["type"] == "multiple_choice":
+            correct_answers = set(question_data["answer"])  # Set of correct answer keys
+            for choice, var in zip(
+                question_data["choices"], self.current_question.user_input_vars
+            ):
+                choice_key = next(
+                    iter(choice.keys())
+                )  # Get the key of the current choice
+                var.set("1" if choice_key in correct_answers else "0")
+        elif self.current_question.data["type"] == "single_choice":
             correct_answer_key = question_data["answer"]
-            correct_answer_text = next(
-                choice[correct_answer_key]
-                for choice in question_data["choices"]
-                if correct_answer_key in choice
-            )
-            answer_label = ctk.CTkLabel(self.answer_frame, text=correct_answer_text)
-        answer_label.pack(anchor="w")
+            self.current_question.user_input_vars[0].set(correct_answer_key)
 
     def display_message(self, message):
         # Update the text of the message label to display feedback
@@ -155,24 +145,28 @@ class QuizApp:
         for widget in self.frame_controls.winfo_children():
             widget.destroy()
 
-        # Create and pack the control buttons
+        # Create a frame to hold the buttons together
+        button_frame = ctk.CTkFrame(self.frame_controls)
+        button_frame.pack(pady=10, padx=20)
+
+        # Create and pack the control buttons within the button frame
         submit_button = ctk.CTkButton(
-            self.frame_controls,
+            button_frame,
             text="Submit",
             command=self.validate_answer,
             fg_color="#4CAF50",
             hover_color="#66BB6A",
         )
-        submit_button.pack(side=tk.LEFT, padx=10)
+        submit_button.pack(side=tk.LEFT, padx=5)
 
         show_answer_button = ctk.CTkButton(
-            self.frame_controls,
+            button_frame,
             text="Show Answer",
             command=self.show_correct_answer,
             fg_color="#FFC107",
             hover_color="#FFD54F",
         )
-        show_answer_button.pack(side=tk.RIGHT, padx=10)
+        show_answer_button.pack(side=tk.LEFT, padx=5)
 
 
 # Load quiz data
