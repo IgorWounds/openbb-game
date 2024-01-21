@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from PIL import Image, ImageTk
 import tkinter as tk
 import json
 
@@ -11,7 +12,9 @@ class QuizQuestion:
 
     def display(self):
         question_label = ctk.CTkLabel(
-            self.app, text=self.data["prompt"], wraplength=500
+            self.app,
+            text=self.data["prompt"],
+            wraplength=500,
         )
         question_label.pack(
             anchor="w", pady=(0, 10), fill="x"
@@ -20,7 +23,11 @@ class QuizQuestion:
         if self.data["type"] == "multiple_choice":
             self.user_input_vars = []
             for choice in self.data["choices"]:
-                choice_frame = ctk.CTkFrame(self.app)
+                # choice_frame = ctk.CTkFrame(self.app)
+                choice_frame = ctk.CTkFrame(
+                    self.app,
+                    bg_color="transparent",
+                )
                 choice_frame.pack(fill="x", pady=2)
                 var = tk.BooleanVar()
                 checkbox = ctk.CTkCheckBox(
@@ -42,18 +49,6 @@ class QuizQuestion:
                     radio_button.pack(
                         anchor="w", fill="x"
                     )  # Ensure radio button fills the x-axis and is left-aligned
-        # elif self.data["type"] == "multiple_choice":
-        #     for choice in self.data["choices"]:
-        #         choice_frame = ctk.CTkFrame(self.app)
-        #         choice_frame.pack(fill="x", pady=2)  # Ensure frame fills the x-axis
-        #         var = tk.StringVar()
-        #         checkbox = ctk.CTkCheckBox(
-        #             choice_frame, text=list(choice.values())[0], variable=var
-        #         )
-        #         checkbox.pack(
-        #             side="left", anchor="w"
-        #         )  # Align checkbox to the left within the frame
-        #         self.user_input_vars.append(var)
 
     def validate(self):
         if self.data["type"] == "multiple_choice":
@@ -74,9 +69,22 @@ class QuizApp:
         self.app = ctk.CTk()
         self.app.geometry("1200x500")
         self.app.title("Quiz Application")
+
+        # Load the background image
+        self.original_background_image = Image.open("BG.png")
+        self.background_photo = ImageTk.PhotoImage(self.original_background_image)
+
+        # Create a background label
+        self.background_label = tk.Label(self.app, image=self.background_photo)
+        self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+        # Bind the resize event
+        self.app.bind("<Configure>", self.on_resize)
+
         ctk.set_appearance_mode("System")  # or "Dark" / "Light"
         ctk.set_default_color_theme("blue")  # Theme color
-
+        self.frame_question = ctk.CTkFrame(self.app, bg_color="transparent")
+        self.frame_controls = ctk.CTkFrame(self.app, bg_color="transparent")
         self.quiz_data = quiz_data
         self.current_question_id = 1
         self.current_question = None
@@ -90,6 +98,23 @@ class QuizApp:
         # Add a message label that will be updated with feedback
         self.message_label = ctk.CTkLabel(self.app, text="")
         self.message_label.pack(pady=(5, 20))
+        self.resize_job = None
+
+    def on_resize(self, event):
+        # Cancel the previous resize job
+        if self.resize_job is not None:
+            self.app.after_cancel(self.resize_job)
+        self.resize_job = self.app.after(
+            100, self.perform_resize, event.width, event.height
+        )
+
+    def perform_resize(self, new_width, new_height):
+        # Resize the background image to fit the window
+        resized_image = self.original_background_image.resize(
+            (new_width, new_height), Image.Resampling.BILINEAR
+        )
+        self.background_photo = ImageTk.PhotoImage(resized_image)
+        self.background_label.config(image=self.background_photo)
 
     def start_quiz(self):
         self.display_question(str(self.current_question_id))
@@ -125,6 +150,7 @@ class QuizApp:
                 self.display_question(str(self.current_question_id))
             else:
                 ctk.CTkLabel(self.app, text="Quiz Complete!").pack()
+                self.app.after(2000, self.app.destroy)  # Close the app after 2 seconds
         else:
             self.display_message("Incorrect answer. Try again!")
 
