@@ -10,32 +10,37 @@ class QuizQuestion:
         self.user_input_vars = []
 
     def display(self):
-        ctk.CTkLabel(self.app, text=self.data["prompt"], wraplength=500).pack(
-            anchor="w", pady=(0, 10)
-        )  # Add some padding for spacing
+        question_label = ctk.CTkLabel(
+            self.app, text=self.data["prompt"], wraplength=500
+        )
+        question_label.pack(
+            anchor="w", pady=(0, 10), fill="x"
+        )  # Ensure label fills the x-axis and is left-aligned
+
         if self.data["type"] == "single_choice":
             self.user_input_vars = [tk.StringVar()]
             for choice in self.data["choices"]:
                 for key, value in choice.items():
-                    ctk.CTkRadioButton(
+                    radio_button = ctk.CTkRadioButton(
                         self.app,
                         text=value,
                         variable=self.user_input_vars[0],
                         value=key,
-                    ).pack()
+                    )
+                    radio_button.pack(
+                        anchor="w", fill="x"
+                    )  # Ensure radio button fills the x-axis and is left-aligned
         elif self.data["type"] == "multiple_choice":
             for choice in self.data["choices"]:
-                choice_frame = ctk.CTkFrame(self.app)  # Create a frame for each choice
-                choice_frame.pack(
-                    fill="x", pady=2
-                )  # Pack the frame with a little vertical padding
+                choice_frame = ctk.CTkFrame(self.app)
+                choice_frame.pack(fill="x", pady=2)  # Ensure frame fills the x-axis
                 var = tk.StringVar()
                 checkbox = ctk.CTkCheckBox(
                     choice_frame, text=list(choice.values())[0], variable=var
-                )  # Place the checkbox in the frame
+                )
                 checkbox.pack(
-                    side="left"
-                )  # Pack the checkbox to the left side of the frame
+                    side="left", anchor="w"
+                )  # Align checkbox to the left within the frame
                 self.user_input_vars.append(var)
 
     def validate(self):

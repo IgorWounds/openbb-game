@@ -20,7 +20,7 @@
         "url": ""
     },
     "2": {
-        "type": "multiple_choice",
+        "type": "single_choice",
         "prompt": "Pairs trading is a strategy where",
         "choices": [
             {
@@ -36,7 +36,7 @@
                 "d": "a trader buys low and sells high."
             }
         ],
-        "answer": ["a", "b", "c", "d"],
+        "answer": "a",
         "url": ""
     },
     "3": {
