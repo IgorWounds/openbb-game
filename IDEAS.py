@@ -2,6 +2,7 @@ import customtkinter as ctk
 import tkinter as tk
 import json
 
+
 class QuizQuestion:
     def __init__(self, data, app):
         self.data = data
@@ -9,28 +10,46 @@ class QuizQuestion:
         self.user_input_vars = []
 
     def display(self):
-        ctk.CTkLabel(self.app, text=self.data["prompt"], wraplength=500).pack(anchor='w', pady=(0, 10))  # Add some padding for spacing
+        ctk.CTkLabel(self.app, text=self.data["prompt"], wraplength=500).pack(
+            anchor="w", pady=(0, 10)
+        )  # Add some padding for spacing
         if self.data["type"] == "single_choice":
             self.user_input_vars = [tk.StringVar()]
             for choice in self.data["choices"]:
                 for key, value in choice.items():
-                    ctk.CTkRadioButton(self.app, text=value, variable=self.user_input_vars[0], value=key).pack()
+                    ctk.CTkRadioButton(
+                        self.app,
+                        text=value,
+                        variable=self.user_input_vars[0],
+                        value=key,
+                    ).pack()
         elif self.data["type"] == "multiple_choice":
             for choice in self.data["choices"]:
                 choice_frame = ctk.CTkFrame(self.app)  # Create a frame for each choice
-                choice_frame.pack(fill='x', pady=2)  # Pack the frame with a little vertical padding
+                choice_frame.pack(
+                    fill="x", pady=2
+                )  # Pack the frame with a little vertical padding
                 var = tk.StringVar()
-                checkbox = ctk.CTkCheckBox(choice_frame, text=list(choice.values())[0], variable=var)  # Place the checkbox in the frame
-                checkbox.pack(side='left')  # Pack the checkbox to the left side of the frame
+                checkbox = ctk.CTkCheckBox(
+                    choice_frame, text=list(choice.values())[0], variable=var
+                )  # Place the checkbox in the frame
+                checkbox.pack(
+                    side="left"
+                )  # Pack the checkbox to the left side of the frame
                 self.user_input_vars.append(var)
 
     def validate(self):
         if self.data["type"] == "multiple_choice":
-            user_selected_keys = [list(choice.keys())[0] for choice, var in zip(self.data["choices"], self.user_input_vars) if var.get() == '1']
+            user_selected_keys = [
+                list(choice.keys())[0]
+                for choice, var in zip(self.data["choices"], self.user_input_vars)
+                if var.get() == "1"
+            ]
             return set(user_selected_keys) == set(self.data["answer"])
         elif self.data["type"] == "single_choice":
             return self.user_input_vars[0].get() == self.data["answer"]
         return False
+
 
 class QuizApp:
     def __init__(self, quiz_data):
@@ -43,12 +62,12 @@ class QuizApp:
         self.quiz_data = quiz_data
         self.current_question_id = 1
         self.current_question = None
-
+        self.answer_frame = ctk.CTkFrame(self.app)
         self.frame_question = ctk.CTkFrame(self.app)
-        self.frame_question.pack(pady=20, padx=20, fill='both', expand=True)
+        self.frame_question.pack(pady=20, padx=20, fill="both", expand=True)
 
         self.frame_controls = ctk.CTkFrame(self.app)
-        self.frame_controls.pack(pady=10, padx=20, fill='x')
+        self.frame_controls.pack(pady=10, padx=20, fill="x")
 
         # Add a message label that will be updated with feedback
         self.message_label = ctk.CTkLabel(self.app, text="")
@@ -59,6 +78,14 @@ class QuizApp:
         self.app.mainloop()
 
     def display_question(self, question_id):
+        # Clear the previous question's widgets and the answer frame
+        for widget in self.frame_question.winfo_children():
+            widget.destroy()
+        for widget in self.answer_frame.winfo_children():
+            widget.destroy()
+
+        # Unpack the answer frame if it's packed
+        self.answer_frame.pack_forget()
         # Clear the previous question's widgets
         for widget in self.frame_question.winfo_children():
             widget.destroy()
@@ -87,32 +114,32 @@ class QuizApp:
         # Clear any previous message
         self.display_message("")
 
-        # Clear previous answer labels if the answer frame already exists
-        if hasattr(self, 'answer_frame'):
-            for widget in self.answer_frame.winfo_children():
-                widget.destroy()
-        else:
-            # Create the answer frame if it does not exist
-            self.answer_frame = ctk.CTkFrame(self.app)
-            self.answer_frame.pack(pady=(5, 0))  # Pack with padding at the top for separation
+        # Clear previous answer labels and pack the answer frame
+        for widget in self.answer_frame.winfo_children():
+            widget.destroy()
+        self.answer_frame.pack(pady=(5, 0))
 
         question_data = self.quiz_data[str(self.current_question_id)]
 
-        # Display each correct answer in the answer frame
+        # Display the correct answer(s)
         if isinstance(question_data["answer"], list):
             for answer_key in question_data["answer"]:
-                answer_text = next(choice[answer_key] for choice in question_data["choices"] if answer_key in choice)
+                answer_text = next(
+                    choice[answer_key]
+                    for choice in question_data["choices"]
+                    if answer_key in choice
+                )
                 answer_label = ctk.CTkLabel(self.answer_frame, text=answer_text)
-                answer_label.pack(anchor='w')  # Align labels to the west (left)
+                answer_label.pack(anchor="w")
         else:
             correct_answer_key = question_data["answer"]
-            correct_answer_text = next(choice[correct_answer_key] for choice in question_data["choices"] if correct_answer_key in choice)
+            correct_answer_text = next(
+                choice[correct_answer_key]
+                for choice in question_data["choices"]
+                if correct_answer_key in choice
+            )
             answer_label = ctk.CTkLabel(self.answer_frame, text=correct_answer_text)
-            answer_label.pack(anchor='w')
-
-        # Scroll to the answer_frame if it's out of view
-        self.app.update()
-        self.app.update_idletasks()
+        answer_label.pack(anchor="w")
 
     def display_message(self, message):
         # Update the text of the message label to display feedback
@@ -124,11 +151,24 @@ class QuizApp:
             widget.destroy()
 
         # Create and pack the control buttons
-        submit_button = ctk.CTkButton(self.frame_controls, text="Submit", command=self.validate_answer, fg_color="#4CAF50", hover_color="#66BB6A")
+        submit_button = ctk.CTkButton(
+            self.frame_controls,
+            text="Submit",
+            command=self.validate_answer,
+            fg_color="#4CAF50",
+            hover_color="#66BB6A",
+        )
         submit_button.pack(side=tk.LEFT, padx=10)
 
-        show_answer_button = ctk.CTkButton(self.frame_controls, text="Show Answer", command=self.show_correct_answer, fg_color="#FFC107", hover_color="#FFD54F")
+        show_answer_button = ctk.CTkButton(
+            self.frame_controls,
+            text="Show Answer",
+            command=self.show_correct_answer,
+            fg_color="#FFC107",
+            hover_color="#FFD54F",
+        )
         show_answer_button.pack(side=tk.RIGHT, padx=10)
+
 
 # Load quiz data
 with open("IDEAS.json") as json_file:
