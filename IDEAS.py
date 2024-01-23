@@ -11,15 +11,17 @@ class QuizQuestion:
         self.user_input_vars = []
 
     def display(self):
+        # Dynamically set the wraplength based on the width of the window
+        window_width = self.app.winfo_width()
         question_label = ctk.CTkLabel(
             self.app,
             text=self.data["prompt"],
-            wraplength=500,
-            font=("Roboto", 16, "bold"),  # Set the font here
+            wraplength=window_width - 20,  # Adjust the wraplength dynamically
+            font=("Roboto", 16, "bold"),
+            anchor="center",  # Align the text in the center of the label
+            justify="center",  # Justify the text in the center
         )
-        question_label.pack(
-            anchor="w", pady=(0, 10), fill="x"
-        )  # Ensure label fills the x-axis and is left-aligned
+        question_label.pack(pady=(0, 10), fill="x")
 
         if self.data["type"] == "multiple_choice":
             self.user_input_vars = []
