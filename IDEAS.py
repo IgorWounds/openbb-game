@@ -86,21 +86,25 @@ class QuizApp:
 
         ctk.set_appearance_mode("System")  # or "Dark" / "Light"
         ctk.set_default_color_theme("blue")  # Theme color
+        
         self.question_frame = ctk.CTkFrame(self.app, bg_color="transparent")
         self.frame_controls = ctk.CTkFrame(self.app, bg_color="transparent")
+        
         self.quiz_data = quiz_data
         self.current_question_id = 1
         self.current_question = None
+        
         self.answer_frame = ctk.CTkFrame(self.app)
+        
         self.question_frame = ctk.CTkFrame(self.app)
         self.question_frame.pack(pady=20, padx=20, fill="both", expand=True)
+
+        self.message_label = ctk.CTkLabel(self.app, text="", height=10)  # Adjust height as needed
+        self.message_label.pack_configure(padx=20, pady=10, fill='x')
 
         self.frame_controls = ctk.CTkFrame(self.app)
         self.frame_controls.pack(pady=10, padx=20, fill="x")
 
-        # Add a message label that will be updated with feedback
-        self.message_label = ctk.CTkLabel(self.app, text="")
-        self.message_label.pack(pady=(5, 20))
         self.resize_job = None
 
     def on_resize(self, event):
@@ -120,6 +124,9 @@ class QuizApp:
         self.background_label.config(image=self.background_photo)
         self.background_label.image = self.background_photo  # Keep a reference to avoid garbage collection
 
+    def update_message(self, message):
+        self.message_label.configure(text=message)
+        self.message_label.pack_configure(padx=20, pady=10, fill='x')
 
     def start_quiz(self):
         self.display_question(str(self.current_question_id))
@@ -148,20 +155,21 @@ class QuizApp:
 
     def validate_answer(self):
         # Clear any previous message
-        self.display_message("")
+        self.update_message("")  # Clear any previous message
+
         if self.current_question.validate():
             self.current_question_id += 1
             if str(self.current_question_id) in self.quiz_data:
                 self.display_question(str(self.current_question_id))
             else:
-                ctk.CTkLabel(self.app, text="Quiz Complete!").pack()
-                self.app.after(2000, self.app.destroy)  # Close the app after 2 seconds
+                self.update_message("Quiz Completed!")
+                self.app.after(500, self.app.destroy)  # Close the app after 2 seconds
         else:
-            self.display_message("Incorrect answer. Try again!")
+            self.update_message("Incorrect answer. Try again!")
 
     def show_correct_answer(self):
         # Clear any previous message
-        self.display_message("")
+        self.update_message("")  # Clear any previous message
 
         # Set the correct answer(s)
         question_data = self.quiz_data[str(self.current_question_id)]
@@ -176,10 +184,6 @@ class QuizApp:
         elif self.current_question.data["type"] == "single_choice":
             correct_answer_key = question_data["answer"]
             self.current_question.user_input_vars[0].set(correct_answer_key)
-
-    def display_message(self, message):
-        # Update the text of the message label to display feedback
-        self.message_label.configure(text=message)
 
     def add_control_buttons(self):
         # Clear the control frame before repacking the buttons
