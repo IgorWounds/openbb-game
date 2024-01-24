@@ -2,7 +2,9 @@ import customtkinter as ctk
 from PIL import Image, ImageTk
 import tkinter as tk
 import json
-
+import os
+import io
+import threading
 
 class QuizQuestion:
     def __init__(self, data, app):
@@ -59,6 +61,21 @@ class QuizQuestion:
                         anchor="w", fill="x"
                     )  # Ensure radio button fills the x-axis and is left-aligned
 
+    def display_image(self, image_path):
+        if image_path:
+            # Check if the file exists
+            if os.path.exists(image_path):
+                pil_image = Image.open(image_path)
+                # Resize or process the image as needed
+                # pil_image = pil_image.resize((desired_width, desired_height))
+
+                tk_image = ImageTk.PhotoImage(pil_image)
+                image_label = tk.Label(self.app, image=tk_image)
+                image_label.image = tk_image  # Keep a reference
+                image_label.pack(pady=(10, 0))
+            else:
+                print(f"Image not found: {image_path}")
+
 
     def validate(self):
         if self.data["type"] == "multiple_choice":
@@ -77,11 +94,12 @@ class QuizQuestion:
 class QuizApp:
     def __init__(self, quiz_data):
         self.app = ctk.CTk()
-        self.app.geometry("1200x500")
+        self.app.geometry("1200x650")
         self.app.title("Quiz Application")
+        self.bg_image_path = "static/BG.png"
 
         # Load the background image
-        self.original_background_image = Image.open("BG.png")
+        self.original_background_image = Image.open(self.bg_image_path)
         self.background_photo = ImageTk.PhotoImage(self.original_background_image)
 
         # Create a background label
@@ -159,6 +177,10 @@ class QuizApp:
         self.current_question = QuizQuestion(question_data, self.question_frame)
         self.current_question.display()
 
+        if self.quiz_data[question_id].get('url', None):
+            image_path = os.path.join("static/", self.quiz_data[question_id].get('url'))
+            self.current_question.display_image(image_path)
+
         # Restore previous selections if any
         if question_id in self.user_selections:
             previous_selections = self.user_selections[question_id]
@@ -227,15 +249,6 @@ class QuizApp:
             control_button_frame = ctk.CTkFrame(self.frame_controls)
             control_button_frame.pack(pady=10, padx=20)
 
-            submit_button = ctk.CTkButton(
-                control_button_frame,
-                text="Submit",
-                command=self.validate_answer,
-                fg_color="#4CAF50",
-                hover_color="#66BB6A",
-            )
-            submit_button.pack(side=tk.LEFT, padx=5)
-
             show_answer_button = ctk.CTkButton(
                 control_button_frame,
                 text="Show Answer",
@@ -244,6 +257,15 @@ class QuizApp:
                 hover_color="#FFD54F",
             )
             show_answer_button.pack(side=tk.LEFT, padx=5)
+
+            submit_button = ctk.CTkButton(
+                control_button_frame,
+                text="Submit",
+                command=self.validate_answer,
+                fg_color="#4CAF50",
+                hover_color="#66BB6A",
+            )
+            submit_button.pack(side=tk.LEFT, padx=5)
 
         # Create a frame to hold the navigation buttons
         navigation_button_frame = ctk.CTkFrame(self.frame_controls)
@@ -280,10 +302,11 @@ class QuizApp:
             self.display_question(str(self.current_question_id))
 
 
-# Load quiz data
-with open("IDEAS.json") as json_file:
-    quiz_data = json.load(json_file)
+if __name__ == "__main__":
+    # Load quiz data
+    with open("IDEAS.json") as json_file:
+        quiz_data = json.load(json_file)
 
-# Initialize and start the quiz application
-quiz_app = QuizApp(quiz_data)
-quiz_app.start_quiz()
+    # Initialize and start the quiz application
+    quiz_app = QuizApp(quiz_data)
+    quiz_app.start_quiz()
