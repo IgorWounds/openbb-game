@@ -1,7 +1,7 @@
 {
     "1": {
         "type": "text",
-        "prompt": "The topic we'll be exploring is performing investment research on Netlifx (NFLX) and its peers for a pair trading strategy. The goal of this game is to be comfortable and get hands-on experience using the OpenBB Platform."
+        "prompt": "The topic we'll be exploring is performing investment research on Netlifx (NFLX) and its peers for a pair trading strategy.\nThe goal of this game is to be comfortable and get hands-on experience using the OpenBB Platform."
     },
     "2": {
         "type": "text",
@@ -9,7 +9,7 @@
     },
     "3": {
         "type": "text",
-        "prompt": "For best results, please create a JSON notebook and run the commands in the notebook. You can also run the commands in the console, but you will not be able to save your work."
+        "prompt": "For the best experience, please create a Jupyter notebook and run the commands in the notebook.\nYou can also run the commands in the console, but you will not be able to save your work."
     },
     "4": {
         "type": "multiple_choice",
