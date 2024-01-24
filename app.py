@@ -3,8 +3,7 @@ from PIL import Image, ImageTk
 import tkinter as tk
 import json
 import os
-import io
-import threading
+
 
 class QuizQuestion:
     def __init__(self, data, app):
@@ -17,7 +16,7 @@ class QuizQuestion:
         window_width = self.app.winfo_width()
         font_style = ("Roboto", 16, "bold")
 
-         # Check if the question type is 'text' and adjust the font style
+        # Check if the question type is 'text' and adjust the font style
         if self.data["type"] == "text":
             font_style = ("Roboto", 16)  # Regular font style
 
@@ -76,7 +75,6 @@ class QuizQuestion:
             else:
                 print(f"Image not found: {image_path}")
 
-
     def validate(self):
         if self.data["type"] == "multiple_choice":
             user_selected_keys = {
@@ -124,9 +122,7 @@ class QuizApp:
         self.question_frame = ctk.CTkFrame(self.app)
         self.question_frame.pack(pady=20, padx=20, fill="both", expand=True)
 
-        self.message_label = ctk.CTkLabel(
-            self.app, text="", bg_color="transparent"
-        )
+        self.message_label = ctk.CTkLabel(self.app, text="", bg_color="transparent")
         self.message_label.pack_configure(padx=20, pady=10, fill="x")
 
         self.frame_controls = ctk.CTkFrame(self.app)
@@ -177,8 +173,8 @@ class QuizApp:
         self.current_question = QuizQuestion(question_data, self.question_frame)
         self.current_question.display()
 
-        if self.quiz_data[question_id].get('url', None):
-            image_path = os.path.join("static/", self.quiz_data[question_id].get('url'))
+        if self.quiz_data[question_id].get("url", None):
+            image_path = os.path.join("static/", self.quiz_data[question_id].get("url"))
             self.current_question.display_image(image_path)
 
         # Restore previous selections if any
