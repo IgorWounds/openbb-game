@@ -13,11 +13,17 @@ class QuizQuestion:
     def display(self):
         # Dynamically set the wraplength based on the width of the window
         window_width = self.app.winfo_width()
+        font_style = ("Roboto", 16, "bold")
+
+         # Check if the question type is 'text' and adjust the font style
+        if self.data["type"] == "text":
+            font_style = ("Roboto", 20)  # Regular font style
+
         question_label = ctk.CTkLabel(
             self.app,
             text=self.data["prompt"],
             wraplength=window_width - 20,  # Adjust the wraplength dynamically
-            font=("Roboto", 16, "bold"),
+            font=font_style,
             anchor="center",  # Align the text in the center of the label
             justify="center",  # Justify the text in the center
         )
@@ -52,6 +58,7 @@ class QuizQuestion:
                     radio_button.pack(
                         anchor="w", fill="x"
                     )  # Ensure radio button fills the x-axis and is left-aligned
+
 
     def validate(self):
         if self.data["type"] == "multiple_choice":
@@ -215,28 +222,28 @@ class QuizApp:
         for widget in self.frame_controls.winfo_children():
             widget.destroy()
 
-        # Create a frame to hold the control buttons
-        control_button_frame = ctk.CTkFrame(self.frame_controls)
-        control_button_frame.pack(pady=10, padx=20)
+        # Only create and display control buttons if the question type is not 'text'
+        if self.current_question.data["type"] != "text":
+            control_button_frame = ctk.CTkFrame(self.frame_controls)
+            control_button_frame.pack(pady=10, padx=20)
 
-        # Create and pack the control buttons within the control_button_frame
-        submit_button = ctk.CTkButton(
-            control_button_frame,
-            text="Submit",
-            command=self.validate_answer,
-            fg_color="#4CAF50",
-            hover_color="#66BB6A",
-        )
-        submit_button.pack(side=tk.LEFT, padx=5)
+            submit_button = ctk.CTkButton(
+                control_button_frame,
+                text="Submit",
+                command=self.validate_answer,
+                fg_color="#4CAF50",
+                hover_color="#66BB6A",
+            )
+            submit_button.pack(side=tk.LEFT, padx=5)
 
-        show_answer_button = ctk.CTkButton(
-            control_button_frame,
-            text="Show Answer",
-            command=self.show_correct_answer,
-            fg_color="#FFC107",
-            hover_color="#FFD54F",
-        )
-        show_answer_button.pack(side=tk.LEFT, padx=5)
+            show_answer_button = ctk.CTkButton(
+                control_button_frame,
+                text="Show Answer",
+                command=self.show_correct_answer,
+                fg_color="#FFC107",
+                hover_color="#FFD54F",
+            )
+            show_answer_button.pack(side=tk.LEFT, padx=5)
 
         # Create a frame to hold the navigation buttons
         navigation_button_frame = ctk.CTkFrame(self.frame_controls)
