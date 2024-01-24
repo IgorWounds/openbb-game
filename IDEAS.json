@@ -1,7 +1,7 @@
 {
     "1": {
         "type": "text",
-        "prompt": "The topic we'll be exploring is performing investment research on Netlifx (NFLX) and its peers for a pair trading strategy.\nThe goal of this game is to be comfortable and get hands-on experience using the OpenBB Platform."
+        "prompt": "Welcome to the OpenBB Quiz! We'll be exploring the topic of performing investment research on Netlifx (NFLX) and its peers for a pair trading strategy.\nThe goal of this game is to be comfortable and get hands-on experience using the OpenBB Platform."
     },
     "2": {
         "type": "text",
