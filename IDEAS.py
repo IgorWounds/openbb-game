@@ -17,7 +17,7 @@ class QuizQuestion:
 
          # Check if the question type is 'text' and adjust the font style
         if self.data["type"] == "text":
-            font_style = ("Roboto", 20)  # Regular font style
+            font_style = ("Roboto", 16)  # Regular font style
 
         question_label = ctk.CTkLabel(
             self.app,
