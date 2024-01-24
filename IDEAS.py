@@ -100,8 +100,8 @@ class QuizApp:
         self.question_frame.pack(pady=20, padx=20, fill="both", expand=True)
 
         self.message_label = ctk.CTkLabel(
-            self.app, text="", height=10
-        )  # Adjust height as needed
+            self.app, text="", bg_color="transparent"
+        )
         self.message_label.pack_configure(padx=20, pady=10, fill="x")
 
         self.frame_controls = ctk.CTkFrame(self.app)
@@ -130,7 +130,7 @@ class QuizApp:
         )  # Keep a reference to avoid garbage collection
 
     def update_message(self, message):
-        self.message_label.configure(text=message)
+        self.message_label.configure(text=message, bg_color="transparent")
         self.message_label.pack_configure(padx=20, pady=10, fill="x")
 
     def start_quiz(self):
@@ -190,7 +190,7 @@ class QuizApp:
                     500, self.app.destroy
                 )  # Close the app after a short delay
         else:
-            self.update_message("Incorrect answer. Try again!")
+            self.update_message("One or more answer is incorrect. Please try again!")
 
     def show_correct_answer(self):
         # Clear any previous message
