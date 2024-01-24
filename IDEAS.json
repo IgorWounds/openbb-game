@@ -435,5 +435,29 @@
         ],
         "answer": "b",
         "url": ""
+    },
+    "27": {
+        "type": "single_choice",
+        "prompt": "To obtain the price performance for PARA and its top 3 pair trading peers, we use the following command",
+        "choices": [
+            {
+                "a": "`obb.equity.price_performance(symbol=[\"PARA\", \"WBD\", \"DIS\", \"ROKU\"], start_date=\"2021-01-01\")`"
+            },
+            {
+                "b": "`obb.equity.price.performance(symbol=[\"PARA\", \"WBD\", \"DIS\", \"ROKU\"], start_date=\"2021-01-01\")`"
+            },
+            {
+                "c": "`obb.equity.performance(symbol=[\"PARA\", \"WBD\", \"DIS\", \"ROKU\"], start_date=\"2021-01-01\")`"
+            },
+            {
+                "d": "`obb.equity.performance.price(symbol=[\"PARA\", \"WBD\", \"DIS\", \"ROKU\"], start_date=\"2021-01-01\")`"
+            }
+        ],
+        "answer": "b",
+        "url": ""
+    },
+    "28": {
+        "type": "text",
+        "prompt": "Thank you for playing this game and we hope you have learned:\n1. Installing and setting up the OpenBB Platform and Hub\n2. Navigating the OpenBB Platform\n3. Installing new extensions\n4. How to perform investment research on a company and its peers for using the pair trading strategy\n5. Hands-on experience with the OpenBB Platform features (passing data between commands, filtering data by date, etc)\n\nFor more information, please visit our documentation at https://docs.openbb.co/platform"
     }
 }
