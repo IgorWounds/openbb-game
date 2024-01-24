@@ -53,7 +53,7 @@
     },
     "6": {
         "type": "single_choice",
-        "prompt": "For a Pairs trading strategy to work the best, the two assets should be",
+        "prompt": "For a pairs trading strategy to work the best, the two assets should be",
         "choices": [
             {
                 "a": "highly correlated"
@@ -73,7 +73,7 @@
     },
     "7": {
         "type": "single_choice",
-        "prompt": "To install the OpenBB Platform you need to",
+        "prompt": "To install the OpenBB Platform we need to",
         "choices": [
             {
                 "a": "Install Docker and run: `docker run -p 8888:8888 openbb/platform`"
@@ -93,7 +93,7 @@
     },
     "8": {
         "type": "single_choice",
-        "prompt": "To import the OpenBB Platform you need to",
+        "prompt": "To import the OpenBB Platform we need to",
         "choices": [
             {
                 "a": "`from openbb-platform import platform`"
@@ -113,7 +113,7 @@
     },
     "9": {
         "type": "single_choice",
-        "prompt": "To connect to the Hub you need to run",
+        "prompt": "To connect to the Hub we need to run",
         "choices": [
             {
                 "a": "`obb.connect`"
@@ -153,13 +153,13 @@
     },
     "11": {
         "type": "single_choice",
-        "prompt": "To display the results as a dataframe we need to run add to_df() to the end of the command",
+        "prompt": "To display the results as a dataframe we need to add `to_df()` to the end of the command",
         "choices": [
             {
-                "a": "true"
+                "a": "True"
             },
             {
-                "b": "false"
+                "b": "False"
             }
         ],
         "answer": "a",
@@ -170,10 +170,10 @@
         "prompt": "To get the income statement all we need to do is to change balance to income in the namespace",
         "choices": [
             {
-                "a": "true"
+                "a": "True"
             },
             {
-                "b": "false"
+                "b": "False"
             }
         ],
         "answer": "a",
@@ -181,7 +181,7 @@
     },
     "13": {
         "type": "single_choice",
-        "prompt": "What is the value of NFLX net income in 2021 based on the cash flow statement?",
+        "prompt": "By executing the appropriate command in the Jupyter notebook/console answer:\nWhat is the value of NFLX net income in 2021 based on the cash flow statement?",
         "choices": [
             {
                 "a": "1866916000"
@@ -267,7 +267,7 @@
     },
     "17": {
         "type": "text",
-        "prompt": "The reason we exclude APE is because it is defunct on September 2nd 2023.\nThe reason we exclude PARAA is because the shares are Class A and are not available to the general public for trading."
+        "prompt": "The reason we exclude these two is because:\n1. APE became defunct on September 2nd 2023.\n2. PARAA shares are Class A and are not available to the general public for trading."
     },
     "18": {
         "type": "single_choice",
@@ -375,7 +375,7 @@
     },
     "24": {
         "type": "multiple_choice",
-        "prompt": "Which one of the following pairs are the most cointegrated?",
+        "prompt": "From the given image, which top 3 pairs from the following pairs are the most cointegrated?",
         "choices": [
             {
                 "a": "DIS/PARA"
@@ -394,7 +394,7 @@
             }
         ],
         "answer": ["e", "a", "b"],
-        "url": ""
+        "url": "coint.png"
     },
     "25": {
         "type": "single_choice",
