@@ -304,7 +304,7 @@ class QuizApp:
 
 if __name__ == "__main__":
     # Load quiz data
-    with open("IDEAS.json") as json_file:
+    with open("data.json") as json_file:
         quiz_data = json.load(json_file)
 
     # Initialize and start the quiz application
