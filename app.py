@@ -65,8 +65,6 @@ class QuizQuestion:
             # Check if the file exists
             if os.path.exists(image_path):
                 pil_image = Image.open(image_path)
-                # Resize or process the image as needed
-                # pil_image = pil_image.resize((desired_width, desired_height))
 
                 tk_image = ImageTk.PhotoImage(pil_image)
                 image_label = tk.Label(self.app, image=tk_image)
