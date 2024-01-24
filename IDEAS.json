@@ -1,5 +1,17 @@
 {
     "1": {
+        "type": "text",
+        "prompt": "The topic we'll be exploring is performing investment research on Netlifx (NFLX) and its peers for a pair trading strategy. The goal of this game is to be comfortable and get hands-on experience using the OpenBB Platform."
+    },
+    "2": {
+        "type": "text",
+        "prompt": "The requirements of this game are to:\n1. Have a basic understanding of the Python language\n2. Have an account at OpenBB Hub (https://my.openbb.co)\n3. Set up the FinancialModelingPrep API key inside the Hub."
+    },
+    "3": {
+        "type": "text",
+        "prompt": "For best results, please create a JSON notebook and run the commands in the notebook. You can also run the commands in the console, but you will not be able to save your work."
+    },
+    "4": {
         "type": "multiple_choice",
         "prompt": "What are the features of the OpenBB Platform?",
         "choices": [
@@ -19,7 +31,7 @@
         "answer": ["a", "b", "c", "d"],
         "url": ""
     },
-    "2": {
+    "5": {
         "type": "single_choice",
         "prompt": "Pairs trading is a strategy where",
         "choices": [
@@ -39,7 +51,7 @@
         "answer": "a",
         "url": ""
     },
-    "3": {
+    "6": {
         "type": "single_choice",
         "prompt": "For a Pairs trading strategy to work the best, the two assets should be",
         "choices": [
@@ -59,7 +71,7 @@
         "answer": "c",
         "url": ""
     },
-    "4": {
+    "7": {
         "type": "single_choice",
         "prompt": "To install the OpenBB Platform you need to",
         "choices": [
@@ -76,10 +88,10 @@
                 "d": "Run `pip install openbb`"
             }
         ],
-        "answer": "d",
+        "answer": "b",
         "url": ""
     },
-    "5": {
+    "8": {
         "type": "single_choice",
         "prompt": "To import the OpenBB Platform you need to",
         "choices": [
@@ -96,10 +108,10 @@
                 "d": "`from openbb import obb`"
             }
         ],
-        "answer": "d",
+        "answer": "c",
         "url": ""
     },
-    "6": {
+    "9": {
         "type": "single_choice",
         "prompt": "To connect to the Hub you need to run",
         "choices": [
@@ -116,10 +128,10 @@
                 "d": "`obb.login(email='email', password='password')`"
             }
         ],
-        "answer": "d",
+        "answer": "b",
         "url": ""
     },
-    "7": {
+    "10": {
         "type": "single_choice",
         "prompt": "To analyze the NFLX balance sheet we need to access which namespace",
         "choices": [
@@ -139,7 +151,7 @@
         "answer": "c",
         "url": ""
     },
-    "8": {
+    "11": {
         "type": "single_choice",
         "prompt": "To display the results as a dataframe we need to run add to_df() to the end of the command",
         "choices": [
@@ -153,7 +165,7 @@
         "answer": "a",
         "url": ""
     },
-    "9": {
+    "12": {
         "type": "single_choice",
         "prompt": "To get the income statement all we need to do is to change balance to income in the namespace",
         "choices": [
@@ -167,7 +179,7 @@
         "answer": "a",
         "url": ""
     },
-    "10": {
+    "13": {
         "type": "single_choice",
         "prompt": "What is the value of NFLX net income in 2021 based on the cash flow statement?",
         "choices": [
@@ -190,7 +202,7 @@
         "answer": "e",
         "url": ""
     },
-    "11": {
+    "14": {
         "type": "single_choice",
         "prompt": "What are the peers of NFLX when we run the following command `obb.equity.compare.peers(\"NFLX\").to_df()[1][0]`?",
         "choices": [
@@ -210,7 +222,7 @@
         "answer": "c",
         "url": ""
     },
-    "12": {
+    "15": {
         "type": "single_choice",
         "prompt": "To get the quarterly income statement of ROKU we run the following command",
         "choices": [
@@ -227,10 +239,10 @@
                 "d": "`obb.equity.fundamental.income(\"ROKU\", period=\"quarterly\")`"
             }
         ],
-        "answer": "b",
+        "answer": "d",
         "url": ""
     },
-    "13": {
+    "16": {
         "type": "multiple_choice",
         "prompt": "Which of the following peers should we remove from the analysis",
         "choices": [
@@ -253,7 +265,11 @@
         "answer": ["a", "c"],
         "url": ""
     },
-    "14": {
+    "17": {
+        "type": "text",
+        "prompt": "The reason we exclude APE is because it is defunct on September 2nd 2023.\nThe reason we exclude PARAA is because the shares are Class A and are not available to the general public for trading."
+    },
+    "18": {
         "type": "single_choice",
         "prompt": "To obtain the historical data for NFLX and its peers for the last 2 years we can run the following command",
         "choices": [
@@ -273,7 +289,7 @@
         "answer": "b",
         "url": ""
     },
-    "15": {
+    "19": {
         "type": "single_choice",
         "prompt": "To calculate the SMA what OpenBB extension do we need to install?",
         "choices": [
@@ -290,10 +306,10 @@
                 "d": "openbb-econometrics"
             }
         ],
-        "answer": "a",
+        "answer": "c",
         "url": ""
     },
-    "16": {
+    "20": {
         "type": "single_choice",
         "prompt": "To run a cointegration and correlation test we need to use which OpenBB extension?",
         "choices": [
@@ -313,7 +329,11 @@
         "answer": "c",
         "url": ""
     },
-    "17": {
+    "21": {
+        "type": "text",
+        "prompt": "Install the extensions and reload your kernel."
+    },
+    "22": {
         "type": "single_choice",
         "prompt": "To calculate the 20 SMA we need to run the following command for each of the peers",
         "choices": [
@@ -330,10 +350,10 @@
                 "d": "`obb.ta.sma(data=data, length=20)`"
             }
         ],
-        "answer": "a",
+        "answer": "b",
         "url": ""
     },
-    "18": {
+    "23": {
         "type": "single_choice",
         "prompt": "To run the cointegration test we need to run the following command",
         "choices": [
@@ -353,7 +373,7 @@
         "answer": "a",
         "url": ""
     },
-    "19": {
+    "24": {
         "type": "multiple_choice",
         "prompt": "Which one of the following pairs are the most cointegrated?",
         "choices": [
@@ -376,7 +396,7 @@
         "answer": ["e", "a", "b"],
         "url": ""
     },
-    "20": {
+    "25": {
         "type": "single_choice",
         "prompt": "To create a correlation matrix we need to run the following command",
         "choices": [
@@ -396,7 +416,7 @@
         "answer": "d",
         "url": ""
     },
-    "21": {
+    "26": {
         "type": "single_choice",
         "prompt": "To obtain the latest news for PARA and its pair trading peers, we use the following command",
         "choices": [
