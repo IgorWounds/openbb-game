@@ -86,21 +86,23 @@ class QuizApp:
 
         ctk.set_appearance_mode("System")  # or "Dark" / "Light"
         ctk.set_default_color_theme("blue")  # Theme color
-        
+
         self.question_frame = ctk.CTkFrame(self.app, bg_color="transparent")
         self.frame_controls = ctk.CTkFrame(self.app, bg_color="transparent")
-        
+
         self.quiz_data = quiz_data
         self.current_question_id = 1
         self.current_question = None
-        
+        self.user_selections = {}
         self.answer_frame = ctk.CTkFrame(self.app)
-        
+
         self.question_frame = ctk.CTkFrame(self.app)
         self.question_frame.pack(pady=20, padx=20, fill="both", expand=True)
 
-        self.message_label = ctk.CTkLabel(self.app, text="", height=10)  # Adjust height as needed
-        self.message_label.pack_configure(padx=20, pady=10, fill='x')
+        self.message_label = ctk.CTkLabel(
+            self.app, text="", height=10
+        )  # Adjust height as needed
+        self.message_label.pack_configure(padx=20, pady=10, fill="x")
 
         self.frame_controls = ctk.CTkFrame(self.app)
         self.frame_controls.pack(pady=10, padx=20, fill="x")
@@ -118,15 +120,18 @@ class QuizApp:
     def perform_resize(self, new_width, new_height):
         # Resize the background image to fit the window using a faster method
         resized_image = self.original_background_image.resize(
-            (new_width, new_height), Image.Resampling.NEAREST  # NEAREST is a faster method
+            (new_width, new_height),
+            Image.Resampling.NEAREST,  # NEAREST is a faster method
         )
         self.background_photo = ImageTk.PhotoImage(resized_image)
         self.background_label.config(image=self.background_photo)
-        self.background_label.image = self.background_photo  # Keep a reference to avoid garbage collection
+        self.background_label.image = (
+            self.background_photo
+        )  # Keep a reference to avoid garbage collection
 
     def update_message(self, message):
         self.message_label.configure(text=message)
-        self.message_label.pack_configure(padx=20, pady=10, fill='x')
+        self.message_label.pack_configure(padx=20, pady=10, fill="x")
 
     def start_quiz(self):
         self.display_question(str(self.current_question_id))
@@ -141,14 +146,22 @@ class QuizApp:
 
         # Unpack the answer frame if it's packed
         self.answer_frame.pack_forget()
-        # Clear the previous question's widgets
-        for widget in self.question_frame.winfo_children():
-            widget.destroy()
 
         # Display the current question
         question_data = self.quiz_data[question_id]
         self.current_question = QuizQuestion(question_data, self.question_frame)
         self.current_question.display()
+
+        # Restore previous selections if any
+        if question_id in self.user_selections:
+            previous_selections = self.user_selections[question_id]
+            if self.current_question.data["type"] == "multiple_choice":
+                for var, selected in zip(
+                    self.current_question.user_input_vars, previous_selections
+                ):
+                    var.set(selected)
+            elif self.current_question.data["type"] == "single_choice":
+                self.current_question.user_input_vars[0].set(previous_selections)
 
         # Repack the control frame and buttons for each new question
         self.add_control_buttons()
@@ -157,13 +170,25 @@ class QuizApp:
         # Clear any previous message
         self.update_message("")  # Clear any previous message
 
+        # Save the user's selections
+        if self.current_question.data["type"] == "multiple_choice":
+            self.user_selections[str(self.current_question_id)] = [
+                var.get() for var in self.current_question.user_input_vars
+            ]
+        elif self.current_question.data["type"] == "single_choice":
+            self.user_selections[
+                str(self.current_question_id)
+            ] = self.current_question.user_input_vars[0].get()
+
         if self.current_question.validate():
             self.current_question_id += 1
             if str(self.current_question_id) in self.quiz_data:
                 self.display_question(str(self.current_question_id))
             else:
                 self.update_message("Quiz Completed!")
-                self.app.after(500, self.app.destroy)  # Close the app after 2 seconds
+                self.app.after(
+                    500, self.app.destroy
+                )  # Close the app after a short delay
         else:
             self.update_message("Incorrect answer. Try again!")
 
@@ -190,32 +215,13 @@ class QuizApp:
         for widget in self.frame_controls.winfo_children():
             widget.destroy()
 
-        # Create a frame to hold the buttons together
-        button_frame = ctk.CTkFrame(self.frame_controls)
-        button_frame.pack(pady=10, padx=20)
+        # Create a frame to hold the control buttons
+        control_button_frame = ctk.CTkFrame(self.frame_controls)
+        control_button_frame.pack(pady=10, padx=20)
 
-        # Add navigation buttons
-        back_button = ctk.CTkButton(
-            button_frame,
-            text="Back",
-            command=self.go_to_previous_question,
-            fg_color="#FF5722",  # Change the color if you want
-            hover_color="#FF7043",
-        )
-        back_button.pack(side=tk.LEFT, padx=5)
-
-        next_button = ctk.CTkButton(
-            button_frame,
-            text="Next",
-            command=self.go_to_next_question,
-            fg_color="#FF5722",  # Change the color if you want
-            hover_color="#FF7043",
-        )
-        next_button.pack(side=tk.LEFT, padx=5)
-
-        # Create and pack the control buttons within the button frame
+        # Create and pack the control buttons within the control_button_frame
         submit_button = ctk.CTkButton(
-            button_frame,
+            control_button_frame,
             text="Submit",
             command=self.validate_answer,
             fg_color="#4CAF50",
@@ -224,13 +230,37 @@ class QuizApp:
         submit_button.pack(side=tk.LEFT, padx=5)
 
         show_answer_button = ctk.CTkButton(
-            button_frame,
+            control_button_frame,
             text="Show Answer",
             command=self.show_correct_answer,
             fg_color="#FFC107",
             hover_color="#FFD54F",
         )
         show_answer_button.pack(side=tk.LEFT, padx=5)
+
+        # Create a frame to hold the navigation buttons
+        navigation_button_frame = ctk.CTkFrame(self.frame_controls)
+        navigation_button_frame.pack(pady=10, padx=20)
+
+        # Conditionally add the Back button
+        if self.current_question_id > 1:
+            back_button = ctk.CTkButton(
+                navigation_button_frame,
+                text="Back",
+                command=self.go_to_previous_question,
+                fg_color="#FF5722",
+                hover_color="#FF7043",
+            )
+            back_button.pack(side=tk.LEFT, padx=5)
+
+        next_button = ctk.CTkButton(
+            navigation_button_frame,
+            text="Next",
+            command=self.go_to_next_question,
+            fg_color="#FF5722",
+            hover_color="#FF7043",
+        )
+        next_button.pack(side=tk.LEFT, padx=5)
 
     def go_to_next_question(self):
         if str(self.current_question_id + 1) in self.quiz_data:
@@ -242,7 +272,7 @@ class QuizApp:
             self.current_question_id -= 1
             self.display_question(str(self.current_question_id))
 
- 
+
 # Load quiz data
 with open("IDEAS.json") as json_file:
     quiz_data = json.load(json_file)
