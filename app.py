@@ -1,17 +1,23 @@
-import customtkinter as ctk
-from PIL import Image, ImageTk
-import tkinter as tk
+"""A simple quiz application using customtkinter."""
+
 import json
 import os
+import tkinter as tk
+
+import customtkinter as ctk
+from PIL import Image, ImageTk
 
 
 class QuizQuestion:
+    """A class to represent a quiz question."""
+
     def __init__(self, data, app):
         self.data = data
         self.app = app
         self.user_input_vars = []
 
     def display(self):
+        """Display the question and its choices."""
         # Dynamically set the wraplength based on the width of the window
         window_width = self.app.winfo_width()
         font_style = ("Roboto", 16, "bold")
@@ -61,6 +67,7 @@ class QuizQuestion:
                     )  # Ensure radio button fills the x-axis and is left-aligned
 
     def display_image(self, image_path):
+        """Display an image in the question frame."""
         if image_path:
             # Check if the file exists
             if os.path.exists(image_path):
@@ -74,6 +81,7 @@ class QuizQuestion:
                 print(f"Image not found: {image_path}")
 
     def validate(self):
+        """Validate the user's answer."""
         if self.data["type"] == "multiple_choice":
             user_selected_keys = {
                 list(choice.keys())[0]
@@ -88,6 +96,8 @@ class QuizQuestion:
 
 
 class QuizApp:
+    """A class to represent a quiz application."""
+
     def __init__(self, quiz_data):
         self.app = ctk.CTk()
         self.app.geometry("1200x650")
@@ -129,6 +139,7 @@ class QuizApp:
         self.resize_job = None
 
     def on_resize(self, event):
+        """Handle the window resize event."""
         # Cancel the previous resize job
         if self.resize_job is not None:
             self.app.after_cancel(self.resize_job)
@@ -137,6 +148,7 @@ class QuizApp:
         )
 
     def perform_resize(self, new_width, new_height):
+        """Resize the background image to fit the window."""
         # Resize the background image to fit the window using a faster method
         resized_image = self.original_background_image.resize(
             (new_width, new_height),
@@ -149,14 +161,17 @@ class QuizApp:
         )  # Keep a reference to avoid garbage collection
 
     def update_message(self, message):
+        """Update the message label with the given message."""
         self.message_label.configure(text=message, bg_color="transparent")
         self.message_label.pack_configure(padx=20, pady=10, fill="x")
 
     def start_quiz(self):
+        """Start the quiz application."""
         self.display_question(str(self.current_question_id))
         self.app.mainloop()
 
     def display_question(self, question_id):
+        """Display the question with the given ID."""
         # Clear the previous question's widgets and the answer frame
         for widget in self.question_frame.winfo_children():
             widget.destroy()
@@ -190,6 +205,7 @@ class QuizApp:
         self.add_control_buttons()
 
     def validate_answer(self):
+        """Validate the user's answer."""
         # Clear any previous message
         self.update_message("")  # Clear any previous message
 
@@ -199,9 +215,9 @@ class QuizApp:
                 var.get() for var in self.current_question.user_input_vars
             ]
         elif self.current_question.data["type"] == "single_choice":
-            self.user_selections[
-                str(self.current_question_id)
-            ] = self.current_question.user_input_vars[0].get()
+            self.user_selections[str(self.current_question_id)] = (
+                self.current_question.user_input_vars[0].get()
+            )
 
         if self.current_question.validate():
             self.current_question_id += 1
@@ -216,6 +232,7 @@ class QuizApp:
             self.update_message("One or more answer is incorrect. Please try again!")
 
     def show_correct_answer(self):
+        """Show the correct answer for the current question."""
         # Clear any previous message
         self.update_message("")  # Clear any previous message
 
@@ -234,11 +251,13 @@ class QuizApp:
             self.current_question.user_input_vars[0].set(correct_answer_key)
 
     def add_control_buttons(self):
+        """Add control buttons to the control frame."""
         # Clear the control frame before repacking the buttons
         for widget in self.frame_controls.winfo_children():
             widget.destroy()
 
-        # Only create and display control buttons if the question type is not 'text'
+        # Only create and display control buttons if the
+        # question type is not 'text'
         if self.current_question.data["type"] != "text":
             control_button_frame = ctk.CTkFrame(self.frame_controls)
             control_button_frame.pack(pady=10, padx=20)
@@ -286,11 +305,13 @@ class QuizApp:
         next_button.pack(side=tk.LEFT, padx=5)
 
     def go_to_next_question(self):
+        """Go to the next question."""
         if str(self.current_question_id + 1) in self.quiz_data:
             self.current_question_id += 1
             self.display_question(str(self.current_question_id))
 
     def go_to_previous_question(self):
+        """Go to the previous question."""
         if self.current_question_id > 1:
             self.current_question_id -= 1
             self.display_question(str(self.current_question_id))
